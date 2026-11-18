@@ -1,0 +1,9 @@
+{"date": "2026-11-09", "at": "2026-11-18T19:22:58", "status": "done", "done_tasks": ["d01t1", "d01t2"], "note": "Keil 装了三遍才对，串口驱动要单独装", "energy": 4}
+{"date": "2026-11-10", "at": "2026-11-18T19:22:58", "status": "done", "done_tasks": ["d02t1", "d02t2"], "note": "", "energy": 5}
+{"date": "2026-11-11", "at": "2026-11-18T19:22:59", "status": "partial", "done_tasks": ["d03t1"], "note": "中断版没写完，只跑了轮询", "energy": 3}
+{"date": "2026-11-12", "at": "2026-11-18T19:22:59", "status": "done", "done_tasks": ["d04t1"], "note": "", "energy": 4}
+{"date": "2026-11-13", "at": "2026-11-18T19:22:59", "status": "done", "done_tasks": ["d05t1", "d05t2"], "note": "", "energy": 4}
+{"date": "2026-11-14", "at": "2026-11-18T19:23:00", "status": "done", "done_tasks": ["d06t1"], "note": "串口重定向踩了微库的坑", "energy": 3}
+{"date": "2026-11-15", "at": "2026-11-18T19:23:00", "status": "done", "done_tasks": [], "note": "缓冲日，补了前几天的笔记", "energy": 2}
+{"date": "2026-11-16", "at": "2026-11-18T19:23:00", "status": "blocked", "done_tasks": [], "note": "实验课调课，整块时间被切碎，只看了半小时", "energy": 2}
+{"date": "2026-11-17", "at": "2026-11-18T19:23:01", "status": "done", "done_tasks": ["d09t1"], "note": "", "energy": 4}

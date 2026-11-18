@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# 本地测试工作区
+.testwork/
+.regress/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# 个人档案：默认不提交。
+# 但这个项目的设计初衷之一是「计划可以随 git 一起成长」——
+# 如果你愿意把 .mentor/ 纳入版本管理，看得到自己三个月前写了什么，
+# 删掉下面这行即可。注意 profile.json 里可能有你的个人经历，公开前先检查。
+/.mentor/
