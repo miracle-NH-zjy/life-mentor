@@ -1,0 +1,1836 @@
+{
+ "generated_by": "tools/gen-parity-fixture.py",
+ "plan": {
+  "id": "parity",
+  "version": 1,
+  "goal": "一致性测试",
+  "start_date": "2026-11-09",
+  "end_date": "2026-11-22",
+  "days": [
+   {
+    "date": "2026-11-09",
+    "tasks": [
+     {
+      "id": "t0",
+      "title": "任务0",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "tasks": [
+     {
+      "id": "t1",
+      "title": "任务1",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "tasks": [
+     {
+      "id": "t2",
+      "title": "任务2",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-12",
+    "tasks": [
+     {
+      "id": "t3",
+      "title": "任务3",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-13",
+    "tasks": [
+     {
+      "id": "t4",
+      "title": "任务4",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-14",
+    "tasks": [
+     {
+      "id": "t5",
+      "title": "任务5",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-15",
+    "tasks": [
+     {
+      "id": "t6",
+      "title": "任务6",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-16",
+    "tasks": [
+     {
+      "id": "t7",
+      "title": "任务7",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-17",
+    "tasks": [
+     {
+      "id": "t8",
+      "title": "任务8",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-18",
+    "tasks": [
+     {
+      "id": "t9",
+      "title": "任务9",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-19",
+    "tasks": [
+     {
+      "id": "t10",
+      "title": "任务10",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-20",
+    "tasks": [
+     {
+      "id": "t11",
+      "title": "任务11",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-21",
+    "tasks": [
+     {
+      "id": "t12",
+      "title": "任务12",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   },
+   {
+    "date": "2026-11-22",
+    "tasks": [
+     {
+      "id": "t13",
+      "title": "任务13",
+      "est_min": 30,
+      "verify": "x"
+     }
+    ]
+   }
+  ],
+  "phases": []
+ },
+ "ref": "2026-11-22",
+ "week_keys": {
+  "2026-11-09": "2026-W46",
+  "2026-11-18": "2026-W47",
+  "2027-01-01": "2026-W53"
+ },
+ "cases": [
+  {
+   "name": "all_done",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t3"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 14,
+    "best_streak": 14,
+    "cumulative_days": 14,
+    "effective_days": 14,
+    "done_tasks": 14,
+    "day_rate": 1.0,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [],
+    "grace_weeks_used": [],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "one_missing_in_week",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 13,
+    "best_streak": 13,
+    "cumulative_days": 13,
+    "effective_days": 13,
+    "done_tasks": 13,
+    "day_rate": 0.923077,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [
+     "2026-11-12"
+    ],
+    "grace_weeks_used": [
+     "2026-W46"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "two_missing_same_week",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 10,
+    "best_streak": 10,
+    "cumulative_days": 12,
+    "effective_days": 12,
+    "done_tasks": 12,
+    "day_rate": 0.846154,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [
+     "2026-11-11",
+     "2026-11-12"
+    ],
+    "grace_weeks_used": [
+     "2026-W46"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "missing_across_weeks",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 12,
+    "best_streak": 12,
+    "cumulative_days": 12,
+    "effective_days": 12,
+    "done_tasks": 12,
+    "day_rate": 0.846154,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [
+     "2026-11-12",
+     "2026-11-19"
+    ],
+    "grace_weeks_used": [
+     "2026-W46",
+     "2026-W47"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "with_skip",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t3"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "skip",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 13,
+    "best_streak": 13,
+    "cumulative_days": 13,
+    "effective_days": 12,
+    "done_tasks": 12,
+    "day_rate": 0.846154,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [
+     "2026-11-18"
+    ],
+    "missing_dates": [
+     "2026-11-11"
+    ],
+    "grace_weeks_used": [
+     "2026-W46"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "with_blocked",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t3"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "blocked",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 14,
+    "best_streak": 14,
+    "cumulative_days": 14,
+    "effective_days": 13,
+    "done_tasks": 13,
+    "day_rate": 0.923077,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [
+     "2026-11-14"
+    ],
+    "skipped_dates": [],
+    "missing_dates": [],
+    "grace_weeks_used": [],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "mixed",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t3"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "partial",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "blocked",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "skip",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "partial",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 12,
+    "best_streak": 12,
+    "cumulative_days": 12,
+    "effective_days": 10,
+    "done_tasks": 8,
+    "day_rate": 0.615385,
+    "percent": 100.0,
+    "carryover": 2,
+    "carryover_dates": [
+     "2026-11-20",
+     "2026-11-21"
+    ],
+    "blocked_dates": [
+     "2026-11-16"
+    ],
+    "skipped_dates": [
+     "2026-11-18"
+    ],
+    "missing_dates": [
+     "2026-11-11",
+     "2026-11-20"
+    ],
+    "grace_weeks_used": [
+     "2026-W46",
+     "2026-W47"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 0.5
+   }
+  },
+  {
+   "name": "trailing_missing",
+   "grace": 1,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t3"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 0,
+    "best_streak": 11,
+    "cumulative_days": 11,
+    "effective_days": 11,
+    "done_tasks": 11,
+    "day_rate": 0.846154,
+    "percent": 100.0,
+    "carryover": 2,
+    "carryover_dates": [
+     "2026-11-20",
+     "2026-11-21"
+    ],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [
+     "2026-11-20",
+     "2026-11-21"
+    ],
+    "grace_weeks_used": [
+     "2026-W47"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "one_missing_grace_off",
+   "grace": 0,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t11"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t12"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 10,
+    "best_streak": 10,
+    "cumulative_days": 13,
+    "effective_days": 13,
+    "done_tasks": 13,
+    "day_rate": 0.923077,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [
+     "2026-11-12"
+    ],
+    "grace_weeks_used": [],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  },
+  {
+   "name": "carry_disabled",
+   "grace": 1,
+   "max_carry": 0,
+   "logs": {
+    "2026-11-09": {
+     "date": "2026-11-09",
+     "at": "2026-11-09T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t0"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-10": {
+     "date": "2026-11-10",
+     "at": "2026-11-10T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t1"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-11": {
+     "date": "2026-11-11",
+     "at": "2026-11-11T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t2"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-12": {
+     "date": "2026-11-12",
+     "at": "2026-11-12T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t3"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-13": {
+     "date": "2026-11-13",
+     "at": "2026-11-13T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t4"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-14": {
+     "date": "2026-11-14",
+     "at": "2026-11-14T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t5"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-15": {
+     "date": "2026-11-15",
+     "at": "2026-11-15T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t6"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-16": {
+     "date": "2026-11-16",
+     "at": "2026-11-16T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t7"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-17": {
+     "date": "2026-11-17",
+     "at": "2026-11-17T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t8"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-18": {
+     "date": "2026-11-18",
+     "at": "2026-11-18T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t9"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-19": {
+     "date": "2026-11-19",
+     "at": "2026-11-19T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t10"
+     ],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-20": {
+     "date": "2026-11-20",
+     "at": "2026-11-20T21:00:00",
+     "status": "missing",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-21": {
+     "date": "2026-11-21",
+     "at": "2026-11-21T21:00:00",
+     "status": "partial",
+     "done_tasks": [],
+     "note": "",
+     "energy": 3
+    },
+    "2026-11-22": {
+     "date": "2026-11-22",
+     "at": "2026-11-22T21:00:00",
+     "status": "done",
+     "done_tasks": [
+      "t13"
+     ],
+     "note": "",
+     "energy": 3
+    }
+   },
+   "expect": {
+    "streak": 13,
+    "best_streak": 13,
+    "cumulative_days": 13,
+    "effective_days": 13,
+    "done_tasks": 12,
+    "day_rate": 0.884615,
+    "percent": 100.0,
+    "carryover": 0,
+    "carryover_dates": [],
+    "blocked_dates": [],
+    "skipped_dates": [],
+    "missing_dates": [
+     "2026-11-20"
+    ],
+    "grace_weeks_used": [
+     "2026-W47"
+    ],
+    "needs_adapt": false,
+    "week_key": "2026-W47",
+    "week_planned_days": 7,
+    "week_score": 1.0
+   }
+  }
+ ]
+}

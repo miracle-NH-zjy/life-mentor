@@ -75,6 +75,19 @@ python scripts/mentor.py review
 
 ---
 
+## Mobile check-in PWA (deployable to GitHub Pages in one step)
+
+The `app/` directory is a **static mobile web app** — check in, heatmap, weekly review from your phone, installable to the home screen, works offline.
+
+- Zero dependencies, zero build step: GitHub Pages serves it as-is
+- All data stays in the phone's localStorage; nothing is ever uploaded
+- Shares the **same JSON format** with the Python CLI: import plans generated on desktop, export `.jsonl` back into `.mentor/`
+- Algorithm is field-by-field aligned with the Python version (`tools/parity-check.js`, 173 assertions)
+
+To publish: push to GitHub, then **Settings → Pages → Source: GitHub Actions**. Every push to `main` deploys automatically.
+
+---
+
 ## Division of labour
 
 **The model diagnoses, judges, and writes content. The script owns every date calculation and every bit of state.**

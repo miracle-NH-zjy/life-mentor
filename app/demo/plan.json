@@ -1,0 +1,501 @@
+{
+  "id": "plan-2026-11",
+  "version": 2,
+  "goal": "30 天内让蓝桥杯嵌入式省赛的每个模块都能独立跑通",
+  "domain": "exam-prep",
+  "start_date": "2026-11-09",
+  "end_date": "2026-12-08",
+  "buffer_weekday": 6,
+  "status": "active",
+  "phases": [
+    {
+      "name": "P1 打通工具链",
+      "start": "2026-11-09",
+      "end": "2026-11-15",
+      "focus": "让板子按你的意志亮灭，先建立「我能控制它」的确定感"
+    },
+    {
+      "name": "P2 外设拆解",
+      "start": "2026-11-16",
+      "end": "2026-11-22",
+      "focus": "定时器/PWM/ADC/串口，每个外设都能独立跑通并说出来"
+    },
+    {
+      "name": "P3 综合与真题",
+      "start": "2026-11-23",
+      "end": "2026-11-30",
+      "focus": "从单点知识走到能拼出一个完整工程"
+    },
+    {
+      "name": "P4 限时冲刺",
+      "start": "2026-12-01",
+      "end": "2026-12-08",
+      "focus": "在时间压力下复现，暴露真实漏洞而不是虚假熟练"
+    }
+  ],
+  "days": [
+    {
+      "date": "2026-11-09",
+      "weekday": "周一",
+      "phase": "P1 打通工具链",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d01t1",
+          "title": "装好 Keil5 + STM32CubeMX，跑通一个空白工程",
+          "est_min": 60,
+          "verify": "能编译下载，复位后不报错"
+        },
+        {
+          "id": "d01t2",
+          "title": "手抄一遍上电到 main() 的启动流程",
+          "est_min": 30,
+          "verify": "能口述 Reset_Handler 之后发生了什么"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "weekday": "周二",
+      "phase": "P1 打通工具链",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d02t1",
+          "title": "点亮 PC13 上的 LED",
+          "est_min": 45,
+          "verify": "LED 亮，且说得清为什么必须先开 GPIO 时钟"
+        },
+        {
+          "id": "d02t2",
+          "title": "改成 1Hz 闪烁并核对频率",
+          "est_min": 45,
+          "verify": "10 秒内数到 5 次闪烁"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-11",
+      "weekday": "周三",
+      "phase": "P1 打通工具链",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d03t1",
+          "title": "按键输入控制 LED 亮灭",
+          "est_min": 60,
+          "verify": "按下亮、松开灭，无抖动误触"
+        },
+        {
+          "id": "d03t2",
+          "title": "轮询版与中断版各写一遍并对比",
+          "est_min": 30,
+          "verify": "笔记写清两种写法的 CPU 开销差异"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-12",
+      "weekday": "周四",
+      "phase": "P1 打通工具链",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d04t1",
+          "title": "配置时钟树：HSE 8M 倍频到 72MHz",
+          "est_min": 60,
+          "verify": "串口打印 SystemCoreClock 等于 72000000"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "weekday": "周五",
+      "phase": "P1 打通工具链",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d05t1",
+          "title": "串口 printf 重定向",
+          "est_min": 60,
+          "verify": "串口助手能收到中英文与数字混排"
+        },
+        {
+          "id": "d05t2",
+          "title": "打印各总线时钟频率",
+          "est_min": 30,
+          "verify": "APB1/APB2 数值与参考手册一致"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-14",
+      "weekday": "周六",
+      "phase": "P1 打通工具链",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d06t1",
+          "title": "阶段复盘：把前 5 天含糊的概念补齐",
+          "est_min": 60,
+          "verify": "写下 3 个曾经说不清、现在能讲透的点"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-15",
+      "weekday": "周日",
+      "phase": "P1 打通工具链",
+      "is_buffer": true,
+      "tasks": [],
+      "note": "缓冲日：只补欠账，不排新任务"
+    },
+    {
+      "date": "2026-11-16",
+      "weekday": "周一",
+      "phase": "P2 外设拆解",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d08t1",
+          "title": "定时器中断实现精确 1s 翻转",
+          "est_min": 60,
+          "verify": "秒表核对 60 秒误差小于 1 秒"
+        },
+        {
+          "id": "d08t2",
+          "title": "换成 10ms 中断观察 CPU 占用",
+          "est_min": 30,
+          "verify": "能说出中断频率过高的代价"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "weekday": "周二",
+      "phase": "P2 外设拆解",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d09t1",
+          "title": "PWM 呼吸灯",
+          "est_min": 75,
+          "verify": "亮度连续变化，肉眼看不到台阶"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "weekday": "周三",
+      "phase": "P2 外设拆解",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d10t1",
+          "title": "外部中断 + 旋转编码器读方向",
+          "est_min": 75,
+          "verify": "正反转计数与实际一致，快速旋转不丢步"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "weekday": "周四",
+      "phase": "P2 外设拆解",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d11t1",
+          "title": "ADC 采集电位器电压并串口输出",
+          "est_min": 60,
+          "verify": "两端接近 0V / 3.3V，中间区段线性"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "weekday": "周五",
+      "phase": "P2 外设拆解",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d12t1",
+          "title": "软件 I2C 驱动 OLED 显示一行文字",
+          "est_min": 62,
+          "verify": "上电稳定显示不花屏"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-21",
+      "weekday": "周六",
+      "phase": "P2 外设拆解",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d13t1",
+          "title": "综合：按键切 3 个模式，OLED 同步显示",
+          "est_min": 62,
+          "verify": "切换不卡死，显示立即刷新"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-22",
+      "weekday": "周日",
+      "phase": "P2 外设拆解",
+      "is_buffer": true,
+      "tasks": [],
+      "note": "缓冲日：只补欠账，不排新任务"
+    },
+    {
+      "date": "2026-11-23",
+      "weekday": "周一",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d15t1",
+          "title": "把主循环重构成状态机",
+          "est_min": 42,
+          "verify": "新增一个模式只需改一处代码"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-24",
+      "weekday": "周二",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d16t1",
+          "title": "串口自定义帧协议收发",
+          "est_min": 52,
+          "verify": "错误帧被丢弃且程序不死机"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-25",
+      "weekday": "周三",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d17t1",
+          "title": "定时器输入捕获测外部信号频率",
+          "est_min": 52,
+          "verify": "1kHz 方波测得误差小于 2%"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-26",
+      "weekday": "周四",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d18t1",
+          "title": "多任务时间片调度框架",
+          "est_min": 52,
+          "verify": "三个任务各自按周期运行且互不阻塞"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-27",
+      "weekday": "周五",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d19t1",
+          "title": "限时 90 分钟做真题第 1 套",
+          "est_min": 62,
+          "verify": "计时归零前提交，无论完成度"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-28",
+      "weekday": "周六",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d20t1",
+          "title": "真题第 1 套复盘并重做失分模块",
+          "est_min": 42,
+          "verify": "每个失分点写明原因，重做一遍通过"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-11-29",
+      "weekday": "周日",
+      "phase": "P3 综合与真题",
+      "is_buffer": true,
+      "tasks": [],
+      "note": "缓冲日：只补欠账，不排新任务"
+    },
+    {
+      "date": "2026-11-30",
+      "weekday": "周一",
+      "phase": "P3 综合与真题",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d22t1",
+          "title": "限时 90 分钟做真题第 2 套",
+          "est_min": 62,
+          "verify": "规则同第 1 套"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-01",
+      "weekday": "周二",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d23t1",
+          "title": "限时 90 分钟做真题第 3 套",
+          "est_min": 62,
+          "verify": "规则同第 1 套"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-02",
+      "weekday": "周三",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d24t1",
+          "title": "限时 90 分钟做真题第 4 套",
+          "est_min": 62,
+          "verify": "规则同第 1 套"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-03",
+      "weekday": "周四",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d25t1",
+          "title": "整理错题本，按知识点归类",
+          "est_min": 42,
+          "verify": "每类至少留一个可复用的代码片段"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-04",
+      "weekday": "周五",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d26t1",
+          "title": "盲写常用外设初始化模板",
+          "est_min": 52,
+          "verify": "不看资料写出 GPIO/定时器/串口初始化"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-05",
+      "weekday": "周六",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d27t1",
+          "title": "全真模拟：抽题 + 限时 + 断网",
+          "est_min": 62,
+          "verify": "完整走完读题到提交的流程"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-06",
+      "weekday": "周日",
+      "phase": "P4 限时冲刺",
+      "is_buffer": true,
+      "tasks": [],
+      "note": "缓冲日：只补欠账，不排新任务"
+    },
+    {
+      "date": "2026-12-07",
+      "weekday": "周一",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d29t1",
+          "title": "模拟复盘，补最后两个洞",
+          "est_min": 42,
+          "verify": "两个洞各写一个最小验证程序"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "date": "2026-12-08",
+      "weekday": "周二",
+      "phase": "P4 限时冲刺",
+      "is_buffer": false,
+      "tasks": [
+        {
+          "id": "d30t1",
+          "title": "只翻错题本，写下阶段目标",
+          "est_min": 31,
+          "verify": "能复述每类错误的触发条件"
+        }
+      ],
+      "note": ""
+    }
+  ],
+  "history": [
+    {
+      "version": 1,
+      "at": "2026-11-18T19:22:52",
+      "action": "create"
+    },
+    {
+      "version": 2,
+      "at": "2026-11-18T19:23:49",
+      "action": "amend",
+      "from_date": "2026-11-20",
+      "reason": "实验课调课导致整块时间被切碎，单日只保留一项核心任务，验证「先保住连续性」再谈强度"
+    },
+    {
+      "version": 2,
+      "at": "2026-11-18T19:23:49",
+      "action": "amend"
+    }
+  ],
+  "notes": "由 plan scaffold 生成的骨架。填完 phases 与每天的 tasks 后，用 plan new --file 导入。",
+  "updated_at": "2026-11-18T19:23:49"
+}

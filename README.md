@@ -112,6 +112,25 @@ python scripts/mentor.py review
 
 ---
 
+## 手机打卡端（PWA，发布到 GitHub Pages 即可用）
+
+命令行适合电脑前坐定的场景；`app/` 目录是一个**纯静态手机网页**，部署后手机浏览器打开就能打卡、看热力图、写复盘，还可以「加到桌面」当 App 用，**离线也能打开**。
+
+- 零依赖、零构建：没有 npm，没有框架，GitHub Pages 直接托管
+- 数据只存在手机本地（localStorage），不上传任何服务器
+- 与 Python 版**共用同一份 JSON 格式**：导入电脑端生成的计划，打卡后导出 `.jsonl` 放回 `.mentor/` 目录即可
+- 算法与 Python 版逐字段对齐（`tools/parity-check.js` 自动校验，173 项比对）
+
+**发布只需三步**：
+
+1. 把仓库推到 GitHub（`app/`、`.github/workflows/pages.yml` 已就位）
+2. 仓库 **Settings → Pages → Source 选「GitHub Actions」**
+3. 之后每次 push 到 `main` 自动部署，地址为 `https://<you>.github.io/life-mentor/`
+
+手机首次打开会自动载入示例档案（URL 加 `?demo=1` 可随时重置为示例）。想在本地试用，双击 `app/index.html` 或起任意静态服务器即可。
+
+---
+
 ## 工作流程
 
 ```
@@ -227,6 +246,11 @@ life-mentor/
 │   ├── mentor.py                 统一 CLI
 │   └── lib/                      store / cal / stats / render / validate / motivation / ics
 ├── assets/plan-schema.md         plan.json 字段说明
+├── app/                          手机打卡端 PWA（纯静态，GitHub Pages 托管）
+│   ├── index.html                单页应用：今日 / 计划 / 复盘 / 设置
+│   ├── js/core/                  与 Python 版逐字段对齐的算法（cal / stats / motivation / store）
+│   └── demo/                     首次打开载入的示例档案
+├── tools/                        一致性校验：gen-parity-fixture.py + parity-check.js
 └── examples/demo-user/           一个跑了 10 天的真实档案，含凭证与打卡图
 ```
 
@@ -245,7 +269,8 @@ life-mentor/
 
 ## Roadmap
 
-- [ ] 打卡热力图（单文件 HTML，本地打开）
+- [x] 手机打卡端 PWA（`app/`，GitHub Pages 一键部署）
+- [x] 打卡热力图（手机端「计划」页内置）
 - [ ] `mentor.py import --from markdown` 支持从已有笔记导入
 - [ ] 多计划并行（主线 + 副线）
 - [ ] 更多领域模板：写作 / 语言学习 / 康复训练
