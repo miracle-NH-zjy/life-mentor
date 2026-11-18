@@ -40,7 +40,7 @@ life-mentor is built around three answers: **interview before planning**, **ever
 Python 3.9+. Zero third-party dependencies.
 
 ```bash
-git clone https://github.com/<you>/life-mentor.git
+git clone https://github.com/miracle-NH-zjy/life-mentor.git
 cd life-mentor
 
 python scripts/mentor.py init --dir . --name Sam --goal "Ship a working prototype in 30 days"
@@ -138,13 +138,13 @@ Plain text. Git-trackable, diffable, and yours to take elsewhere.
 **WorkBuddy / skill-aware agents**
 
 ```bash
-git clone https://github.com/<you>/life-mentor.git ~/.workbuddy/skills/life-mentor
+git clone https://github.com/miracle-NH-zjy/life-mentor.git ~/.workbuddy/skills/life-mentor
 ```
 
 **Claude Code**
 
 ```bash
-git clone https://github.com/<you>/life-mentor.git .claude/skills/life-mentor
+git clone https://github.com/miracle-NH-zjy/life-mentor.git .claude/skills/life-mentor
 ```
 
 The core is `SKILL.md` (workflow + guardrails) plus `scripts/mentor.py` (deterministic computation). Any agent that can read files and run commands can use it.

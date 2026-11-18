@@ -67,7 +67,7 @@ life-mentor 针对这三点设计：**先访谈再计划**、**任务必须可�
 需要 Python 3.9+，**零第三方依赖**。
 
 ```bash
-git clone https://github.com/<you>/life-mentor.git
+git clone https://github.com/miracle-NH-zjy/life-mentor.git
 cd life-mentor
 
 # 1) 建立档案
@@ -125,7 +125,7 @@ python scripts/mentor.py review
 
 1. 把仓库推到 GitHub（`app/`、`.github/workflows/pages.yml` 已就位）
 2. 仓库 **Settings → Pages → Source 选「GitHub Actions」**
-3. 之后每次 push 到 `main` 自动部署，地址为 `https://<you>.github.io/life-mentor/`
+3. 之后每次 push 到 `main` 自动部署，地址为 `https://miracle-NH-zjy.github.io/life-mentor/`
 
 手机首次打开会自动载入示例档案（URL 加 `?demo=1` 可随时重置为示例）。想在本地试用，双击 `app/index.html` 或起任意静态服务器即可。
 
@@ -196,7 +196,7 @@ python scripts/mentor.py review
 **WorkBuddy / 支持 skill 的 Agent**
 
 ```bash
-git clone https://github.com/<you>/life-mentor.git \
+git clone https://github.com/miracle-NH-zjy/life-mentor.git \
   ~/.workbuddy/skills/life-mentor
 ```
 
@@ -205,7 +205,7 @@ git clone https://github.com/<you>/life-mentor.git \
 **Claude Code**
 
 ```bash
-git clone https://github.com/<you>/life-mentor.git .claude/skills/life-mentor
+git clone https://github.com/miracle-NH-zjy/life-mentor.git .claude/skills/life-mentor
 ```
 
 **其它平台**：核心是 `SKILL.md`（工作流与约束）+ `scripts/mentor.py`（确定性计算）。任何能读文件、能执行命令的 Agent 都能用。
