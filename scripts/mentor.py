@@ -481,7 +481,12 @@ def cmd_status(args) -> int:
     print(render.status_view(stats, plan))
     blocked_recently = bool(stats["blocked_dates"]) and \
         stats["blocked_dates"][-1] >= (today() - timedelta(days=2)).isoformat()
-    scene = "low" if stats["needs_adapt"] else ("blocked" if blocked_recently else None)
+    today_status = (stats.get("today_log") or {}).get("status")
+    scene = None
+    if stats["needs_adapt"]:
+        scene = "low"
+    elif blocked_recently and today_status not in ("done", "partial"):
+        scene = "blocked"  # 今天已完成就不再泼冷水
     if scene:
         quote = motivation.pick(profile, scene, {
             "streak": stats["streak"], "cumulative": stats["cumulative_days"],
