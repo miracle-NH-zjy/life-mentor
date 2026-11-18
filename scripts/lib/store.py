@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
@@ -85,6 +86,7 @@ class Store:
         self.logs_dir = self.base / "logs"
         self.reviews_dir = self.base / "reviews"
         self.exports_dir = self.base / "exports"
+        self.evidence_dir = self.base / "evidence"
 
     # ---- 构造
 
@@ -96,11 +98,9 @@ class Store:
                 f"{store.base} 已存在。若确认要重建请加 --force（会清空旧档案）。"
             )
         if store.base.exists() and force:
-            import shutil
-
             shutil.rmtree(store.base)
         for d in (store.plans_dir, store.archive_dir, store.logs_dir,
-                  store.reviews_dir, store.exports_dir):
+                  store.reviews_dir, store.exports_dir, store.evidence_dir):
             d.mkdir(parents=True, exist_ok=True)
         return store
 
@@ -201,6 +201,28 @@ class Store:
         for e in self.load_logs():
             latest[e["date"]] = e
         return latest
+
+    # ---- 打卡凭证
+
+    def save_evidence(self, src: Path | str, d: date) -> str:
+        """把凭证文件复制进 .mentor/evidence/YYYY-MM/，返回相对 .mentor 的路径。"""
+        path = Path(src).expanduser()
+        if not path.is_file():
+            raise MentorError(f"凭证文件不存在：{path}")
+        target_dir = self.evidence_dir / f"{d:%Y-%m}"
+        target_dir.mkdir(parents=True, exist_ok=True)
+        stem, suffix = path.stem, path.suffix.lower()
+        candidate = target_dir / f"{d:%Y-%m-%d}_{stem}{suffix}"
+        n = 1
+        while candidate.exists():
+            candidate = target_dir / f"{d:%Y-%m-%d}_{stem}_{n}{suffix}"
+            n += 1
+        shutil.copy2(path, candidate)
+        return str(candidate.relative_to(self.base)).replace("\\", "/")
+
+    def evidence_path(self, rel: str) -> Path:
+        """把记录里的相对路径还原成绝对路径（用于校验是否真的存在）。"""
+        return self.base / rel.replace("/", os.sep)
 
     # ---- 其它
 

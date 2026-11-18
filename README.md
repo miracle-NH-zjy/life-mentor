@@ -20,13 +20,19 @@ $ mentor status
  · 1. 外部中断 + 旋转编码器读方向                   75min
      验收：正反转计数与实际一致，快速旋转不丢步
 
-──────────────────────────────────────────────────────────────
-数据 · 日均完成率 83% | 任务完成 10/32 | 连续打卡 1 天（最佳 7）
-受阻 1 天（最近：2026-11-16）
+待补（2 项，未完成不顺延作废）
+  ← 11-16 定时器中断实现精确 1s 翻转   60min  今天最后一天
 
-分阶段：
-  P1 打通工具链             [███████████░] 93%
-  P2 外设拆解               [██████░░░░░░] 50%
+──────────────────────────────────────────────────────────────
+数据 · 累计 9 天（有效 8） | 当前连击 9 天（最佳 9） | 日均完成率 83%
+宽容 · 每周 1 次缺勤豁免（本周可用） · 累计天数永不归零
+
+$ mentor checkin --status done --evidence 示波器截图.png
+✓ 已打卡：2026-11-18 · 完成（1/1 项）
+  凭证 1 个 → .mentor/evidence/2026-11/
+  累计 10 天（有效 9） | 当前连击 10 天 | 日均完成率 83%
+
+  「完成本身就是证据——证明这件事在你的掌控里。」
 ```
 
 ---
@@ -39,7 +45,7 @@ $ mentor status
 2. **计划强度超过真实承载力。** 按理想状态排 6 小时，实际只能投入 1 小时，第三天就崩，然后彻底放弃。
 3. **中断一次就归零。** 没有缓冲机制，断签等于失败，失败等于重启，重启等于又从零开始。
 
-life-mentor 针对这三点设计：**先访谈再计划**、**任务必须可验收**、**完成率低就降强度而不是加码**。
+life-mentor 针对这三点设计：**先访谈再计划**、**任务必须可验收**、**宽容机制让中断不再等于清零**（累计天数永不归零、每周缺勤豁免、任务自动顺延）。
 
 ---
 
@@ -50,7 +56,8 @@ life-mentor 针对这三点设计：**先访谈再计划**、**任务必须可�
 | 谁拆解目标 | 你自己 | 你自己 | AI 访谈后拆，且受硬约束校验 |
 | 任务定义 | 一句话 | 一句话 | 标题 + 时长 + **可验收的证据** |
 | 计划错了怎么办 | 自己改 | 自己改 | 复盘归因 → 生成新版本，旧版本留档 |
-| 断签之后 | 数据归零 | 数据归零 | 缓冲日吸收，连续天数从昨天续算 |
+| 断签之后 | 数据归零 | 数据归零 | 累计保留、每周豁免、任务顺延 |
+| 打卡凭证 | — | 服务器 | 本地 `.mentor/evidence/`，文件始终是你的 |
 | 数据归属 | 平台 | 平台 | 本地 `.mentor/` 目录，可 git 追踪 |
 
 ---
@@ -92,9 +99,12 @@ python scripts/mentor.py review
 | 导入并校验 | `mentor.py plan new --file plan.json` |
 | 看今天 / 本周 / 全部 | `mentor.py plan show` / `--week` / `--all` |
 | 打卡 | `mentor.py checkin --status done\|partial\|skip\|blocked` |
+| 打卡带凭证 | `mentor.py checkin --status done --evidence 截图.png` |
 | 进度总览 | `mentor.py status`（`--json` 给机器读） |
 | 周复盘 | `mentor.py review`（`--week 2026-W47`） |
 | 调整计划 | `mentor.py plan amend --file patch.json --reason "..."` |
+| 生成打卡图 | `mentor.py card`（自动探测 Chrome/Edge，无则退化 HTML） |
+| 激励文案 | `mentor.py motivate --list` / `--add "..." --scene low` |
 | 导出 | `mentor.py export --format md\|ics --pending` |
 | 数据自检 | `mentor.py doctor` |
 
@@ -123,7 +133,7 @@ python scripts/mentor.py review
 
 ## 为什么它不会变成又一份废掉的计划
 
-五条硬约束，写进了代码而不是提示词：
+五条硬约束 + 一套宽容机制，写进了代码而不是提示词：
 
 1. **单日任务 ≤ 3 项**，单任务 ≤ 90 分钟 —— `plan new` 直接拦
 2. **每个任务必须有可验收的 `verify`** —— 没有验收标准 = 无法判断做完没有
@@ -131,18 +141,29 @@ python scripts/mentor.py review
 4. **完成率低于 50% 时禁止加码** —— 系统会明确提示「该降强度了」
 5. **历史不可覆写** —— 每次调整生成新版本快照，随时能回看「当初为什么改」
 
+宽容机制（可配置，`init --grace-per-week 0` 关闭）：
+
+- **累计天数永不归零** —— 一次中断不会让之前的努力在数字上消失
+- **每周 1 次缺勤豁免** —— 自动生效，那天的连击不断
+- **skip / blocked 不算断签** —— 主动休息和如实上报都是计划的一部分
+- **未完成任务顺延 ≤ 2 天** —— 昨天没做完的今天还能补，过期才失效
+- **激励文案四档触发** —— 打卡、断签恢复、里程碑、低谷；支持自己写
+
+打卡还支持**上传凭证**（`--evidence 照片.png`，存本地）和**生成分享打卡图**（`card`，PNG）。
+
 ---
 
 ## 数据存在哪
 
 ```
 .mentor/
-├── profile.json                 你的档案：经历、目标、约束、人格偏好
+├── profile.json                 你的档案：经历、目标、约束、宽容参数、文案偏好
 ├── plans/<plan-id>.json         当前计划
 ├── plans/archive/<id>.vN.json   每次变更前的快照，只增不改
 ├── logs/YYYY-MM.jsonl           打卡流水，append-only，单行损坏不影响历史
+├── evidence/YYYY-MM/            打卡凭证（照片/截图/文件）
 ├── reviews/YYYY-Www.md          周复盘
-└── exports/                     导出的 md / ics
+└── exports/                     导出的 md / ics / 打卡图
 ```
 
 全部是纯文本。可以 git 追踪、可以 diff、可以随时导出走人。
@@ -204,12 +225,12 @@ life-mentor/
 │   └── domains/                  备考 / 健身 / 求职 / 副业模板
 ├── scripts/
 │   ├── mentor.py                 统一 CLI
-│   └── lib/                      store / cal / stats / render / validate / ics
+│   └── lib/                      store / cal / stats / render / validate / motivation / ics
 ├── assets/plan-schema.md         plan.json 字段说明
-└── examples/demo-user/           一个跑了 9 天的真实档案，可直接看数据结构
+└── examples/demo-user/           一个跑了 10 天的真实档案，含凭证与打卡图
 ```
 
-想看效果，直接读 `examples/demo-user/`，里面有完整的计划、打卡流水、复盘和归档的旧版本。
+想看效果，直接读 `examples/demo-user/`，里面有完整的计划、打卡流水（含凭证引用）、复盘、归档旧版本和导出的打卡图。
 
 ---
 
@@ -224,8 +245,8 @@ life-mentor/
 
 ## Roadmap
 
-- [ ] `mentor.py import --from markdown` 支持从已有笔记导入
 - [ ] 打卡热力图（单文件 HTML，本地打开）
+- [ ] `mentor.py import --from markdown` 支持从已有笔记导入
 - [ ] 多计划并行（主线 + 副线）
 - [ ] 更多领域模板：写作 / 语言学习 / 康复训练
 

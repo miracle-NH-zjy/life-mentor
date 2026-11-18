@@ -7,3 +7,4 @@
 {"date": "2026-11-15", "at": "2026-11-18T19:23:00", "status": "done", "done_tasks": [], "note": "缓冲日，补了前几天的笔记", "energy": 2}
 {"date": "2026-11-16", "at": "2026-11-18T19:23:00", "status": "blocked", "done_tasks": [], "note": "实验课调课，整块时间被切碎，只看了半小时", "energy": 2}
 {"date": "2026-11-17", "at": "2026-11-18T19:23:01", "status": "done", "done_tasks": ["d09t1"], "note": "", "energy": 4}
+{"date": "2026-11-18", "at": "2026-11-18T19:42:25", "status": "done", "done_tasks": ["d10t1"], "note": "编码器方向调通了，示波器截图留档", "energy": 4, "evidence": ["evidence/2026-11/2026-11-18_scope_screenshot.png", "evidence/2026-11/2026-11-18_timer_1hz.txt"]}

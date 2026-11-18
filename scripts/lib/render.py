@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import html
 import unicodedata
 from datetime import date
 from typing import Any
@@ -83,6 +84,9 @@ def day_card(entry: dict, log: dict | None, plan: dict, *, show_verify: bool = T
             lines.append(f"     验收：{t['verify']}")
     if log and log.get("note"):
         lines.append(f"  备注：{log['note']}")
+    if log and log.get("evidence"):
+        names = [e.rsplit("/", 1)[-1] for e in log["evidence"]]
+        lines.append(f"  凭证：{len(names)} 个 · {', '.join(truncate(n, 20) for n in names)}")
     if log:
         lines.append(f"  状态：{STATUS_LABEL.get(st, st)}")
     return "\n".join(lines)
@@ -109,13 +113,30 @@ def status_view(stats: dict, plan: dict) -> str:
         out.append("")
         out.append(f"今天（{stats['today']}）计划里没有条目。")
 
+    carry = stats.get("carryover") or []
+    if carry:
+        out.append("")
+        out.append(f"待补（{len(carry)} 项，未完成不顺延作废）")
+        for item in carry:
+            left = item["expires_in"]
+            tag = "今天最后一天" if left == 0 else f"还剩 {left} 天"
+            out.append(f"  ← {pad(item['from_date'][5:], 6)}{truncate(item['task'].get('title', ''), 34)}"
+                       f"{pad(item['task'].get('est_min', '') and str(item['task']['est_min']) + 'min' or '', 7, 'right')}"
+                       f"  {tag}")
+
     out.append("")
     out.append(hr())
     out.append(
-        f"数据 · 日均完成率 {round(stats['day_rate'] * 100)}%"
-        f" | 任务完成 {stats['done_tasks']}/{stats['total_tasks']}"
-        f" | 连续打卡 {stats['streak']} 天（最佳 {stats['best_streak']}）"
+        f"数据 · 累计 {stats.get('cumulative_days', 0)} 天"
+        f"（有效 {stats.get('effective_days', 0)}）"
+        f" | 当前连击 {stats['streak']} 天（最佳 {stats['best_streak']}）"
+        f" | 日均完成率 {round(stats['day_rate'] * 100)}%"
     )
+    if stats.get("grace_per_week"):
+        used = stats["week"] in (stats.get("grace_weeks_used") or [])
+        out.append(f"宽容 · 每周 {stats['grace_per_week']} 次缺勤豁免"
+                   f"{'（本周已用）' if used else '（本周可用）'}"
+                   f" · 累计天数永不归零")
     if stats["missing_dates"]:
         out.append(f"漏打卡 {len(stats['missing_dates'])} 天"
                    f"（最近：{stats['missing_dates'][-1]}）")
@@ -252,3 +273,111 @@ def review_markdown(stats: dict, ws: dict, plan: dict) -> str:
             "下一步应执行 `plan amend` 下调任务量，而不是加码。",
         ]
     return "\n".join(lines) + "\n"
+
+
+# ------------------------------------------------------------------ 打卡卡片
+
+CARD_CSS = """
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:720px;background:#eef0f4;padding:28px;
+     font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+     -webkit-font-smoothing:antialiased}
+.card{background:#fff;border-radius:18px;padding:34px 38px 26px;
+      box-shadow:0 10px 30px rgba(17,24,39,.07)}
+.top{display:flex;align-items:baseline;justify-content:space-between;
+     padding-bottom:16px;border-bottom:1px solid #eef0f4}
+.date{font-size:30px;font-weight:700;color:#111827;letter-spacing:-.4px}
+.date .wd{font-size:17px;font-weight:500;color:#9ca3af;margin-left:10px}
+.idx{font-size:14px;font-weight:600;color:#2563eb;background:#eff4ff;
+     padding:5px 11px;border-radius:20px}
+.goal{font-size:14px;color:#6b7280;line-height:1.6;margin-top:16px}
+.phase{display:inline-block;font-size:12px;color:#7c3aed;background:#f5f0ff;
+       padding:3px 9px;border-radius:6px;margin-top:10px;font-weight:600}
+.tasks{list-style:none;margin:20px 0 4px}
+.tasks li{display:flex;align-items:flex-start;gap:12px;padding:11px 0;
+          border-bottom:1px dashed #f0f1f4}
+.tasks li:last-child{border-bottom:none}
+.box{width:21px;height:21px;border-radius:7px;flex-shrink:0;margin-top:2px;
+     display:flex;align-items:center;justify-content:center;
+     font-size:13px;font-weight:700;border:1.5px solid #d8dbe2;color:transparent}
+li.done .box{background:#059669;border-color:#059669;color:#fff}
+li.part .box{background:#f59e0b;border-color:#f59e0b;color:#fff}
+.t{font-size:15.5px;color:#111827;line-height:1.45;font-weight:500}
+li.done .t{color:#6b7280;text-decoration:line-through;text-decoration-color:#cbd5e1}
+.v{font-size:12.5px;color:#9ca3af;margin-top:3px;line-height:1.5}
+.m{font-size:12.5px;color:#b0b5bf;flex-shrink:0;margin-top:3px;font-variant-numeric:tabular-nums}
+.stats{display:flex;gap:8px;margin-top:20px;padding:16px 0;
+       border-top:1px solid #eef0f4;border-bottom:1px solid #eef0f4}
+.stats div{flex:1;text-align:center}
+.stats b{display:block;font-size:23px;font-weight:700;color:#111827;
+         font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.stats span{font-size:11.5px;color:#9ca3af;display:block;margin-top:3px}
+.quote{margin-top:18px;font-size:13.5px;color:#4b5563;line-height:1.7;
+       padding-left:12px;border-left:3px solid #dbeafe}
+.foot{margin-top:16px;display:flex;justify-content:space-between;
+      font-size:11px;color:#c9ccd4}
+"""
+
+
+def card_html(entry: dict, log: dict | None, plan: dict, stats: dict,
+              quote: str = "") -> str:
+    """生成一张自包含的打卡卡片，用于转 PNG 或直接在浏览器里截图。"""
+    d = parse_date(entry["date"])
+    total = len(plan.get("days", []))
+    idx = day_index(d, parse_date(plan["start_date"]))
+    phase = entry.get("phase") or phase_for(d, plan.get("phases", []))
+    st = (log or {}).get("status", "missing")
+    done_ids = set((log or {}).get("done_tasks", []))
+    tasks = entry.get("tasks", [])
+
+    rows = []
+    for t in tasks:
+        cls = "done" if t.get("id") in done_ids else ("part" if st == "partial" else "")
+        mark = "✓" if t.get("id") in done_ids else ""
+        rows.append(
+            f'<li class="{cls}"><span class="box">{mark}</span>'
+            f'<div style="flex:1"><div class="t">{html.escape(t.get("title", ""))}</div>'
+            f'<div class="v">{html.escape(t.get("verify", ""))}</div></div>'
+            f'<span class="m">{t.get("est_min", "")}min</span></li>'
+        )
+    if not rows:
+        rows.append('<li><span class="box"></span><div style="flex:1">'
+                    '<div class="t">今天没有任务</div>'
+                    '<div class="v">缓冲日：只补欠账，不排新任务</div></div></li>')
+
+    q = f'<div class="quote">{html.escape(quote)}</div>' if quote else ""
+    note = ""
+    if log and log.get("note"):
+        note = f'<div class="quote">备注：{html.escape(log["note"])}</div>'
+    ev = ""
+    if log and log.get("evidence"):
+        ev = f'<div class="foot" style="margin-top:8px">已附凭证 {len(log["evidence"])} 个</div>'
+
+    return f"""<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>{d.isoformat()} 打卡</title><style>{CARD_CSS}</style></head>
+<body><div class="card">
+<div class="top">
+  <div class="date">{d.month} 月 {d.day} 日<span class="wd">{weekday_cn(d)}</span></div>
+  <div class="idx">第 {idx} / {total} 天</div>
+</div>
+<div class="goal">{html.escape(plan.get("goal", ""))}</div>
+<div class="phase">{html.escape(phase)}</div>
+<ul class="tasks">{"".join(rows)}</ul>
+<div class="stats">
+  <div><b>{stats.get("cumulative_days", 0)}</b><span>累计天数</span></div>
+  <div><b>{stats.get("streak", 0)}</b><span>连续打卡</span></div>
+  <div><b>{round(stats.get("day_rate", 0) * 100)}%</b><span>日均完成率</span></div>
+</div>
+{note}{q}{ev}
+<div class="foot"><span>{STATUS_LABEL.get(st, "未打卡")}</span><span>life-mentor</span></div>
+</div></body></html>
+"""
+
+
+def card_height(task_count: int, has_note: bool = False, has_quote: bool = False) -> int:
+    """估算卡片像素高度，供 headless 浏览器截图时设置窗口。"""
+    h = 250 + max(1, task_count) * 78 + 130
+    h += 60 if has_note else 0
+    h += 70 if has_quote else 0
+    return h

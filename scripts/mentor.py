@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import subprocess
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -17,7 +19,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from lib import render
+from lib import motivation, render
 from lib import ics as ics_mod
 from lib.cal import date_range, parse_date, phase_for, week_key, weekday_cn, week_bounds
 from lib.stats import compute, week_stats
@@ -102,6 +104,16 @@ def cmd_init(args) -> int:
             "tone": args.tone,
             "checkin_time": args.checkin_time,
             "language": "zh",
+        },
+        "resilience": {
+            "grace_per_week": args.grace_per_week,
+            "max_carry_days": args.max_carry_days,
+            "count_skip_as_break": False,
+        },
+        "motivation": {
+            "enabled": True,
+            "mode": "mix",
+            "custom": {},
         },
     }
     store.save_profile(profile)
@@ -393,6 +405,13 @@ def cmd_checkin(args) -> int:
     else:
         done = []
 
+    evidence: list[str] = []
+    for raw in (args.evidence or []):
+        for item in raw.split(","):
+            item = item.strip()
+            if item:
+                evidence.append(store.save_evidence(item, d))
+
     record = {
         "date": d.isoformat(),
         "at": now_iso(),
@@ -400,22 +419,52 @@ def cmd_checkin(args) -> int:
         "done_tasks": done,
         "note": args.note or "",
         "energy": args.energy,
+        "evidence": evidence,
     }
     store.append_log(record)
 
+    profile = store.load_profile()
     latest = store.latest_logs_by_date()
-    stats = compute(plan, latest)  # 始终以「今天」为参照，补录历史不扭曲完成率
+    stats = compute(plan, latest, profile=profile)  # 始终以「今天」为参照
+
     print(f"✓ 已打卡：{d} · {render.STATUS_LABEL[args.status]}"
           f"（{len(done)}/{len(valid)} 项）")
-    print(f"  连续打卡 {stats['streak']} 天 | 日均完成率 {round(stats['day_rate'] * 100)}%")
+    if evidence:
+        print(f"  凭证 {len(evidence)} 个 → .mentor/evidence/{d:%Y-%m}/")
+    print(f"  累计 {stats['cumulative_days']} 天（有效 {stats['effective_days']}）"
+          f" | 当前连击 {stats['streak']} 天"
+          f" | 日均完成率 {round(stats['day_rate'] * 100)}%")
+
+    scene = {"done": "done", "partial": "done", "skip": "skip", "blocked": "blocked"}[args.status]
+    recent_missing = [x for x in stats["missing_dates"]
+                      if (d - timedelta(days=3)).isoformat() <= x < d.isoformat()]
+    if recent_missing and args.status in ("done", "partial"):
+        scene = "recovery"
+    if scene == "done" and stats["cumulative_days"] in (7, 14, 21, 30, 60, 100):
+        scene = "milestone"
+
+    quote = motivation.pick(profile, scene, {
+        "streak": stats["streak"],
+        "cumulative": stats["cumulative_days"],
+        "days": stats["cumulative_days"],
+        "percent": round(stats["percent"]),
+        "name": profile.get("name", ""),
+    })
+    if quote:
+        print()
+        print(f"  「{quote}」")
+        motivation.remember(store, quote)
 
     if args.status == "blocked":
         recent = [x for x in stats["blocked_dates"] if x >= (d - timedelta(days=6)).isoformat()]
         if len(recent) >= 2:
+            print()
             print(f"  ⚠ 近 7 天已有 {len(recent)} 天标记受阻。连续受阻说明计划假设错了，不是你不努力。")
             print("    建议：python scripts/mentor.py review 然后 plan amend 下调强度。")
     if stats["needs_adapt"]:
         print("  ⚠ 完成率持续低于 50%，计划需要下调。用 review 看卡点再 amend。")
+    if stats["carryover"]:
+        print(f"  ↻ 还有 {len(stats['carryover'])} 项待补任务，顺延期内不算失效。")
     return 0
 
 
@@ -424,11 +473,24 @@ def cmd_checkin(args) -> int:
 
 def cmd_status(args) -> int:
     store, plan = _load_plan(args)
-    stats = compute(plan, store.latest_logs_by_date())
+    profile = store.load_profile()
+    stats = compute(plan, store.latest_logs_by_date(), profile=profile)
     if args.json:
         _print_json(stats)
-    else:
-        print(render.status_view(stats, plan))
+        return 0
+    print(render.status_view(stats, plan))
+    blocked_recently = bool(stats["blocked_dates"]) and \
+        stats["blocked_dates"][-1] >= (today() - timedelta(days=2)).isoformat()
+    scene = "low" if stats["needs_adapt"] else ("blocked" if blocked_recently else None)
+    if scene:
+        quote = motivation.pick(profile, scene, {
+            "streak": stats["streak"], "cumulative": stats["cumulative_days"],
+            "percent": round(stats["percent"]), "days": stats["cumulative_days"],
+            "name": profile.get("name", ""),
+        })
+        if quote:
+            print()
+            print(f"  「{quote}」")
     return 0
 
 
@@ -442,7 +504,7 @@ def cmd_review(args) -> int:
     else:
         ref = today()
     ws = week_stats(plan, latest, ref)
-    stats = compute(plan, latest, ref=ref)
+    stats = compute(plan, latest, ref=ref, profile=store.load_profile())
 
     text = render.review_markdown(stats, ws, plan)
     path = store.save_review(ws["week"], text)
@@ -524,6 +586,9 @@ def cmd_doctor(args) -> int:
             for tid in e.get("done_tasks", []):
                 if tid not in task_ids:
                     problems.append(f"{e['date']} 打卡引用了不存在的任务 id：{tid}")
+            for rel in e.get("evidence") or []:
+                if not store.evidence_path(rel).is_file():
+                    problems.append(f"{e['date']} 凭证文件缺失：{rel}")
 
     if problems:
         print("✗ 发现 %d 个问题：" % len(problems))
@@ -534,6 +599,146 @@ def cmd_doctor(args) -> int:
     for n in notes:
         print(f"  · {n}")
     return 1 if problems else 0
+
+
+# ------------------------------------------------------------------ motivate / card
+
+
+def cmd_motivate(args) -> int:
+    store = _store(args)
+    profile = store.load_profile()
+
+    if args.show_list:
+        print(motivation.listing(profile))
+        return 0
+    if args.reset:
+        motivation.reset(store, profile)
+        print("✓ 已恢复默认文案设置（自定义内容已清空）")
+        return 0
+    if args.on or args.off:
+        cfg = dict(profile.get("motivation") or {})
+        cfg["enabled"] = bool(args.on)
+        profile["motivation"] = cfg
+        store.save_profile(profile)
+        print(f"✓ 文案已{'开启' if args.on else '关闭'}")
+        return 0
+    if args.mode:
+        cfg = dict(profile.get("motivation") or {})
+        cfg["mode"] = args.mode
+        profile["motivation"] = cfg
+        store.save_profile(profile)
+        print(f"✓ 文案模式：{args.mode}"
+              f"（mix=内置+自定义 / custom=只用自定义 / builtin=只用内置）")
+        return 0
+    if args.add:
+        cfg = motivation.add(store, profile, args.scene, args.add)
+        count = len((cfg.get("custom") or {}).get(args.scene) or [])
+        print(f"✓ 已加入【{args.scene}】场景，当前自定义 {count} 条")
+        print("  可用占位符：{streak} {cumulative} {percent} {days} {name}")
+        return 0
+    if args.remove is not None:
+        removed = motivation.remove(store, profile, args.scene, args.remove)
+        print(f"✓ 已删除：{removed['removed']}")
+        return 0
+
+    quote = motivation.pick(profile, args.scene, {
+        "streak": 0, "cumulative": 0, "percent": 0, "days": 0,
+        "name": profile.get("name", ""),
+    })
+    if not quote:
+        print("（该场景暂无可用文案：可能已关闭，或自定义为空）")
+        return 0
+    print(f"「{quote}」")
+    return 0
+
+
+def _browser_candidates() -> list[str]:
+    import shutil as sh
+
+    cands: list[str] = []
+    env = os.environ.get("CHROME_PATH")
+    if env:
+        cands.append(env)
+    for name in ("msedge", "chrome", "google-chrome", "chromium", "chromium-browser"):
+        found = sh.which(name)
+        if found:
+            cands.append(found)
+    cands += [
+        r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe",
+        r"C:\Program Files\Microsoft\Edge\Application\msedge.exe",
+        r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+        r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+    ]
+    seen: set[str] = set()
+    out: list[str] = []
+    for c in cands:
+        if c and c not in seen and Path(c).is_file():
+            seen.add(c)
+            out.append(c)
+    return out
+
+
+def _screenshot(html_path: Path, png_path: Path, height: int) -> bool:
+    """用 headless 浏览器把 HTML 截成 PNG。找不到浏览器就返回 False。"""
+    url = html_path.resolve().as_uri()
+    for browser in _browser_candidates():
+        cmd = [
+            browser, "--headless", "--disable-gpu", "--hide-scrollbars",
+            "--no-sandbox", "--disable-extensions", "--disable-dev-shm-usage",
+            f"--screenshot={png_path.resolve()}",
+            f"--window-size=720,{height}", url,
+        ]
+        try:
+            subprocess.run(cmd, capture_output=True, timeout=60, check=False)
+        except (OSError, subprocess.SubprocessError):
+            continue
+        if png_path.is_file() and png_path.stat().st_size > 2048:
+            return True
+    return False
+
+
+def cmd_card(args) -> int:
+    store, plan = _load_plan(args)
+    profile = store.load_profile()
+    latest = store.latest_logs_by_date()
+    d = parse_date(args.date) if args.date else today()
+    entry = next((x for x in plan["days"] if x["date"] == d.isoformat()), None)
+    if not entry:
+        raise MentorError(f"{d} 不在计划周期内（{plan['start_date']} → {plan['end_date']}）")
+    log = latest.get(d.isoformat())
+    stats = compute(plan, latest, ref=d, profile=profile)
+
+    quote = args.quote
+    if quote is None:
+        scene = "done" if log and log.get("status") in ("done", "partial") else "low"
+        quote = motivation.pick(profile, scene, {
+            "streak": stats["streak"], "cumulative": stats["cumulative_days"],
+            "percent": round(stats["percent"]), "days": stats["cumulative_days"],
+            "name": profile.get("name", ""),
+        })
+    html_text = render.card_html(entry, log, plan, stats, quote or "")
+
+    out = Path(args.out) if args.out else store.export_path(f"card-{d.isoformat()}")
+    html_path = out.with_suffix(".html")
+    html_path.parent.mkdir(parents=True, exist_ok=True)
+    html_path.write_text(html_text, encoding="utf-8", newline="\n")
+
+    if args.format == "html":
+        print(f"✓ 打卡页：{html_path}")
+        print("  浏览器打开后直接截图即可分享。")
+        return 0
+
+    png_path = out.with_suffix(".png")
+    height = render.card_height(len(entry.get("tasks", [])),
+                               bool(log and log.get("note")), bool(quote))
+    if _screenshot(html_path, png_path, height):
+        print(f"✓ 打卡图：{png_path}")
+    else:
+        print(f"! 没找到可用浏览器，已生成 HTML：{html_path}")
+        print("  浏览器打开截图即可；装了 Chrome / Edge 后重跑本命令可直接出 PNG。")
+    return 0
 
 
 # ------------------------------------------------------------------ parser
@@ -555,6 +760,10 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--tone", default="auto", choices=["auto", "strict", "gentle"])
     s.add_argument("--time-per-day", type=int, default=120, dest="time_per_day")
     s.add_argument("--checkin-time", default="21:00", dest="checkin_time")
+    s.add_argument("--grace-per-week", type=int, default=1, dest="grace_per_week",
+                   help="每周允许几天缺勤不打断连击，0 = 关闭宽容（默认 1）")
+    s.add_argument("--max-carry-days", type=int, default=2, dest="max_carry_days",
+                   help="未完成任务最多顺延几天，0 = 不顺延（默认 2）")
     s.add_argument("--force", action="store_true", help="清空旧档案重建")
     s.set_defaults(func=cmd_init)
 
@@ -611,6 +820,8 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--note")
     s.add_argument("--date")
     s.add_argument("--energy", type=int, choices=[1, 2, 3, 4, 5], help="当天精力 1-5")
+    s.add_argument("--evidence", action="append", metavar="PATH",
+                   help="打卡凭证文件（图片/文件），可重复传或逗号分隔")
     s.add_argument("--plan-id", dest="plan_id")
     s.set_defaults(func=cmd_checkin)
 
@@ -634,6 +845,28 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("-o", "--out")
     s.add_argument("--plan-id", dest="plan_id")
     s.set_defaults(func=cmd_export)
+
+    # motivate
+    s = sub.add_parser("motivate", help="查看/自定义激励文案")
+    s.add_argument("--scene", default="done", choices=list(motivation.SCENES))
+    s.add_argument("--list", action="store_true", dest="show_list", help="列出当前所有文案")
+    s.add_argument("--add", metavar="TEXT", help="追加一条自定义文案")
+    s.add_argument("--remove", type=int, metavar="N", help="删除指定序号的自定义文案")
+    s.add_argument("--reset", action="store_true", help="恢复默认（清空自定义）")
+    s.add_argument("--mode", choices=["mix", "custom", "builtin"],
+                   help="mix=内置+自定义 / custom=只用自定义 / builtin=只用内置")
+    s.add_argument("--on", action="store_true", help="开启文案")
+    s.add_argument("--off", action="store_true", help="关闭文案")
+    s.set_defaults(func=cmd_motivate)
+
+    # card
+    s = sub.add_parser("card", help="生成当天打卡图（PNG/HTML）")
+    s.add_argument("--date")
+    s.add_argument("--out", help="输出路径（不含扩展名）")
+    s.add_argument("--format", default="png", choices=["png", "html"])
+    s.add_argument("--quote", help="卡片底部自定义那句话")
+    s.add_argument("--plan-id", dest="plan_id")
+    s.set_defaults(func=cmd_card)
 
     # doctor
     s = sub.add_parser("doctor", help="数据一致性自检")

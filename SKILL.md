@@ -137,11 +137,59 @@ python scripts/mentor.py plan new --file plan.json
 python scripts/mentor.py checkin --status done
 python scripts/mentor.py checkin --status partial --tasks d03t1 --note "中断版没跑通"
 python scripts/mentor.py checkin --status blocked --note "实验课调课，整块时间被切碎"
+
+# 附打卡凭证（照片/截图/文件），复制进 .mentor/evidence/，记录里存引用
+python scripts/mentor.py checkin --status done --evidence 截图.png --evidence 记录.txt
 ```
 
 `blocked` 的 note 是后面调计划最重要的原料，不能空着。
 
 打卡后按人格模式给一句反馈（见 `references/persona.md`），**不超过 3 行**，不要借机说教。
+
+---
+
+## 宽容机制（不要替用户硬扛连击）
+
+一次中断不清空一切，规则如下：
+
+| 规则 | 说明 |
+|---|---|
+| 累计天数永不归零 | 「累计完成 9 天」是资产，断签不动它 |
+| 每周 1 次缺勤豁免 | 自动生效，不用操作；可在 init 时用 `--grace-per-week 0` 关闭 |
+| skip / blocked 不打断连击 | 主动休息和如实上报的受阻都不算断 |
+| 未完成任务顺延 2 天 | 昨天没做完的今天还能补，`status` 里显示为「待补」；主动 skip 的任务不顺延 |
+
+**给用户的解释口径**：中断不是失败，是计划里的正常事件。要盯的是「回来」，不是「不断」。
+
+---
+
+## 激励文案（脚本层，LLM 不要自己另编一套）
+
+四个触发点：**打卡成功、断签后恢复、里程碑（7/30 天等）、低谷（受阻/完成率 <50%）**。
+打卡命令和 status 会自动输出，你**不要在回复里重复贴一遍**。
+
+用户自定义：
+
+```bash
+mentor.py motivate --scene recovery --add "摔了一跤又站起来的人，比没摔过的人多一样东西。"
+mentor.py motivate --list          # 查看全部场景与自定义条目
+mentor.py motivate --mode custom   # 只用用户自己的文案
+mentor.py motivate --off           # 整体关闭
+```
+
+用户强调「不要鸡汤」时，用 `--mode custom` 让他自己写。文案支持占位符 `{streak}` `{cumulative}` `{percent}`。
+
+---
+
+## 打卡图
+
+```bash
+mentor.py card                  # 生成 PNG（需要本机有 Chrome/Edge，自动探测）
+mentor.py card --format html    # 没有 PNG 能力时退化为网页，浏览器打开截图
+mentor.py card --quote "自己写的一句话"
+```
+
+用于分享到群/朋友圈的场景。生成失败时提示用户装浏览器，不要自己手搓图片。
 
 ---
 
@@ -215,9 +263,12 @@ python scripts/mentor.py profile set --set preferences.tone=gentle
 | 看本周 | `mentor.py plan show --week` |
 | 看全部 | `mentor.py plan show --all` |
 | 打卡 | `mentor.py checkin --status done` |
+| 打卡带凭证 | `mentor.py checkin --status done --evidence 截图.png` |
 | 进度 | `mentor.py status`（加 `--json` 给机器读） |
 | 复盘 | `mentor.py review` |
 | 调计划 | `mentor.py plan amend --file patch.json --reason "..."` |
+| 打卡图 | `mentor.py card`（`--format html` 退化模式） |
+| 文案 | `mentor.py motivate --list` / `--add "..." --scene low` |
 | 导出 | `mentor.py export --format md\|ics` |
 | 自检 | `mentor.py doctor` |
 
@@ -227,12 +278,14 @@ python scripts/mentor.py profile set --set preferences.tone=gentle
 
 ```
 .mentor/
-├── profile.json                 档案：经历、目标、约束、人格偏好
+├── profile.json                 档案：经历、目标、约束、宽容参数、文案偏好
 ├── plans/<plan-id>.json         当前计划（含 version 与 history）
 ├── plans/archive/<id>.vN.json   每次变更前的历史快照，只增不改
-├── logs/YYYY-MM.jsonl           打卡流水，append-only
+├── logs/YYYY-MM.jsonl           打卡流水，append-only（含 evidence 引用）
+├── evidence/YYYY-MM/            打卡凭证文件（照片/截图/文件）
 ├── reviews/YYYY-Www.md          周复盘
-└── exports/                     导出的 md / ics
+├── exports/                     导出的 md / ics / card
+└── .motivation_state.json       最近用过的文案记录，防止短期重复
 ```
 
 **只允许通过脚本写这些文件。** 手改 JSON 会造成状态不一致，`doctor` 就是用来抓这类问题的。

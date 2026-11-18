@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "created_at": "2026-11-18T19:22:51",
-  "updated_at": "2026-11-18T19:26:04",
+  "updated_at": "2026-11-18T19:42:35",
   "name": "小林",
   "identity": "福州大学 机器人工程 大二",
   "history": [
@@ -39,5 +39,17 @@
     "tone": "auto",
     "checkin_time": "22:00",
     "language": "zh"
+  },
+  "resilience": {
+    "grace_per_week": 1,
+    "max_carry_days": 2
+  },
+  "motivation": {
+    "custom": {
+      "recovery": [
+        "摔了一跤又站起来的人，比没摔过的人多一样东西。"
+      ]
+    },
+    "mode": "mix"
   }
 }

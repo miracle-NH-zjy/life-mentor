@@ -64,9 +64,12 @@ python scripts/mentor.py review
 | Import + validate | `mentor.py plan new --file plan.json` |
 | View today / week / all | `mentor.py plan show` / `--week` / `--all` |
 | Check in | `mentor.py checkin --status done\|partial\|skip\|blocked` |
+| Check in with evidence | `mentor.py checkin --status done --evidence photo.png` |
 | Progress | `mentor.py status` (`--json` for machines) |
 | Weekly review | `mentor.py review` |
 | Adjust plan | `mentor.py plan amend --file patch.json --reason "..."` |
+| Shareable check-in card | `mentor.py card` (auto-detects Chrome/Edge; falls back to HTML) |
+| Motivation quotes | `mentor.py motivate --list` / `--add "..." --scene low` |
 | Export | `mentor.py export --format md\|ics --pending` |
 | Consistency check | `mentor.py doctor` |
 
@@ -88,16 +91,27 @@ Ask a language model "what date is 30 days after 18 November" and it will eventu
 - When completion rate drops below 50%, the system tells you to **cut intensity**
 - Plan history is **never overwritten** — every amendment creates a versioned snapshot
 
+## Forgiveness (built in, configurable)
+
+- **Cumulative days never reset.** One miss doesn't erase your history.
+- **One missed day per week is auto-forgiven** — the streak survives. Disable with `init --grace-per-week 0`.
+- **skip / blocked don't break the streak** — planned rest and honest reporting are part of the plan.
+- **Unfinished tasks carry over for ≤ 2 days** before they truly expire.
+- **Motivation quotes** at four moments: check-in, comeback, milestone, low point. Fully user-customisable.
+
+Check-ins also support **attaching evidence** (`--evidence photo.png`, stored locally) and generating a **shareable check-in card** (`card`).
+
 ---
 
 ## Where data lives
 
 ```
 .mentor/
-├── profile.json                 background, goals, constraints, tone preference
+├── profile.json                 background, goals, constraints, forgiveness & quote settings
 ├── plans/<plan-id>.json         current plan
 ├── plans/archive/<id>.vN.json   snapshot before every change, append-only
-├── logs/YYYY-MM.jsonl           check-in stream, append-only
+├── logs/YYYY-MM.jsonl           check-in stream, append-only (with evidence references)
+├── evidence/YYYY-MM/            check-in evidence files (photos, screenshots, documents)
 ├── reviews/YYYY-Www.md          weekly reviews
 └── exports/
 ```
